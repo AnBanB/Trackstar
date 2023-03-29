@@ -1,0 +1,12 @@
+@import '../abstracts/variable';
+
+.custom-button{
+    padding: 10px;
+    border-radius: 2px;
+    border: none;
+}
+
+.green-button{
+    background: $green;
+    color: $white;
+}

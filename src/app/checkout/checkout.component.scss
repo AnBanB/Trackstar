@@ -1,0 +1,108 @@
+@import '../../scss/abstracts/variable';
+
+
+
+h2 {
+    font-size: 1rem;
+}
+
+h3 {
+    font-size: 0.813rem;
+}
+
+
+
+.form-label {
+    font-size: 0.75rem;
+}
+
+.form-control {
+    border-radius: 2px;
+    border: 1px solid $grey;
+
+    &:focus {
+        box-shadow: none;
+        border: 2px solid $green;
+    }
+}
+
+.white-card {
+    height: 100%;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    .order-img {
+        max-width: 85px;
+
+        img {
+            max-width: 85px;
+        }
+    }
+
+    .item-details {
+        font-size: 0.813rem;
+        width: 179px;
+
+        p {
+            margin-bottom: 0;
+        }
+
+        .item-title {
+            font-weight: 600;
+        }
+    }
+
+    .quatity {
+        width: 100px;
+        position: relative;
+
+        .quantity-controls {
+            width: 10px;
+            position: absolute;
+
+            &.minus {
+                top: 13px;
+                left: 10px;
+            }
+
+            &.plus {
+                bottom: 13px;
+                right: 10px;
+
+            }
+        }
+
+        input {
+            text-align: center;
+            padding: 0.375rem 28px;
+
+            /* Remove arrows Chrome, Safari, Edge, Opera */
+            &::-webkit-inner-spin-button,
+            ::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            /* Remove arrows Firefox */
+            &[type="number"] {
+                -moz-appearance: textfield;
+            }
+        }
+    }
+}
+
+.figures {
+    p {
+        font-size: 0.813rem;
+    }
+
+    .bordered-top {
+        border-top: 1px solid $grey;
+        padding: 16px 0px;
+    }
+}
