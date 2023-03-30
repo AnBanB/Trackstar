@@ -44,8 +44,12 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="parish">Parish</label>
-                        <input type="text" formControlName="parish" class="form-control"
+                        <select formControlName="parish" class="form-select"
                             [ngClass]="checkError('parish')? 'error-box' : ''">
+                            <option *ngFor="let p of parishes" value="{{p.parish}}">
+                                {{p.parish}}
+                            </option>
+                        </select>
                         <p *ngIf="checkError('parish')" class="error-notification">
                             Please select a parish</p>
                     </div>
@@ -94,7 +98,8 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="custom-button green-button w-100" (click)="submitDeliveryDetails()">Place
+                    <button type="submit" class="custom-button green-button w-100"
+                        (click)="submitDeliveryDetails()">Place
                         Order</button>
                 </div>
             </div>

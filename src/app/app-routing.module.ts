@@ -4,8 +4,15 @@ import { CheckoutComponent } from './checkout/checkout.component';
 
 const routes: Routes = [
   {
-    pathMatch: 'full',
+    path: '',
+    component: CheckoutComponent
+  },
+  {
     path: 'checkout',
+    component: CheckoutComponent
+  },
+  {
+    path: '',
     component: CheckoutComponent
   }
 ];

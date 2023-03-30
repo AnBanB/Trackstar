@@ -16,9 +16,10 @@ h3 {
     font-size: 0.75rem;
 }
 
-.form-control {
+.form-control, .form-select {
     border-radius: 2px;
     border: 1px solid $grey;
+    font-size: 0.813rem;
 
     &:focus {
         box-shadow: none;
