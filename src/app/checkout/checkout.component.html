@@ -11,20 +11,32 @@
                 <form [formGroup]="deliveryForm" class="row">
                     <div class="col-md-6">
                         <label class="form-label" for="fullName">Full Name</label>
-                        <input type="text" id="fullName" formControlName="fullName" class="form-control">
+                        <input type="text" id="fullName" formControlName="fullName" class="form-control"
+                            [ngClass]="checkError('fullName')? 'error-box' : ''">
+                        <p *ngIf="checkError('fullName')" class="error-notification">
+                            Please enter your full name</p>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="mobileNumber">Mobile Number</label>
-                        <input type="tel" formControlName="mobileNumber" class="form-control">
+                        <input type="tel" formControlName="mobileNumber" class="form-control"
+                            [ngClass]="checkError('mobileNumber')? 'error-box' : ''">
+                        <p *ngIf="checkError('mobileNumber')" class="error-notification">
+                            Please enter your phone number</p>
                     </div>
                     <div class="col-md-12">
-                        <label class="form-label" for="mobileNumber">Email</label>
-                        <input type="email" formControlName="email" class="form-control">
+                        <label class="form-label" for="email">Email</label>
+                        <input type="email" formControlName="email" class="form-control"
+                            [ngClass]="checkError('email')? 'error-box' : ''">
+                        <p *ngIf="checkError('email')" class="error-notification">
+                            Please enter a valid email address</p>
                     </div>
                     <h3 class="mt-4"> Delivery Address:</h3>
                     <div class="col-md-12">
                         <label class="form-label" for="addressLine1">Address Line 1</label>
-                        <input type="text" formControlName="addressLine1" class="form-control">
+                        <input type="text" formControlName="addressLine1" class="form-control"
+                            [ngClass]="checkError('addressLine1')? 'error-box' : ''">
+                        <p *ngIf="checkError('addressLine1')">
+                            Please enter your address</p>
                     </div>
                     <div class="col-md-12">
                         <label class="form-label" for="addressLine2">Address Line 2</label>
@@ -32,11 +44,10 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="parish">Parish</label>
-                        <input type="text" formControlName="parish" class="form-control">
-                    </div>
-                    <div class="col-md-12">
-                        <label class="form-label" for="note">Note</label>
-                        <textarea id="note" formControlName="note" class="form-control"></textarea>
+                        <input type="text" formControlName="parish" class="form-control"
+                            [ngClass]="checkError('parish')? 'error-box' : ''">
+                        <p *ngIf="checkError('parish')" class="error-notification">
+                            Please select a parish</p>
                     </div>
                 </form>
             </div>
@@ -45,7 +56,7 @@
             <h2>Order Summary</h2>
             <div class="custom-card white-card d-flex justify-content-between flex-column">
                 <div>
-                    <div class="order-item" *ngFor="let product of products, let i = index">
+                    <div class="order-item" *ngFor="let product of products">
                         <div class="order-img">
                             <img src={{product.image}}>
                         </div>
@@ -56,33 +67,58 @@
                         </div>
                         <div class="quatity">
                             <img src="../../assets/icons/minus-solid.svg" alt="Decrease" class="quantity-controls minus"
-                                (click)="product.quantity > 1 ? product.quantity = product.quantity - 1 : product.quantity ">
+                                (click)="product.quantity > 1 ? product.quantity = product.quantity - 1 : product.quantity; calculateSubTotal() ">
                             <input type="number" [(ngModel)]="product.quantity" class="form-control"
-                                (ngModelChange)="updateSubTotal()">
+                                (change)="calculateSubTotal()">
                             <img src="../../assets/icons/plus-solid.svg" alt="Increase" class="quantity-controls plus"
-                                (click)="product.quantity = product.quantity+ 1">
+                                (click)="product.quantity = product.quantity+ 1; calculateSubTotal()">
                         </div>
                     </div>
                 </div>
-                <div class="figures">
-                    <div class="bordered-top">
-                        <div class="d-flex justify-content-between">
-                            <p>Subtotal</p>
-                            <p>{{subTotal}}</p>
+                <div>
+                    <div class="figures">
+                        <div class="bordered-top">
+                            <div class="d-flex justify-content-between">
+                                <p>Subtotal</p>
+                                <p>{{subTotal | currency}}</p>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p>Shipping</p>
+                                <p>{{shippingCost |currency}}</p>
+                            </div>
                         </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Shipping</p>
-                            <p>$10.00</p>
+                        <div class="bordered-top">
+                            <div class="d-flex justify-content-between">
+                                <p>Total (JMD)</p>
+                                <p>{{ subTotal + shippingCost | currency}}</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="bordered-top">
-                        <div class="d-flex justify-content-between">
-                            <p>Total (JMD)</p>
-                            <p>$13,010.00</p>
-                        </div>
-                    </div>
+                    <button type="submit" class="custom-button green-button w-100" (click)="submitDeliveryDetails()">Place
+                        Order</button>
                 </div>
-                <button type="submit" class="custom-button green-button">Place Order</button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-6">
+            <h2>Delivery Options</h2>
+            <div class="custom-card white-card">
+                <form [formGroup]="deliveryOptionsForm">
+                    <div class="col-md-12">
+                        <div *ngFor="let option of deliveryOptions" class="delivery-options">
+                            <label>
+                                <input type="radio" formControlName="deliveryOption" value="{{option.courier}}"
+                                    [(ngModel)]="selectedCourier">
+                                <img src="{{option.image}}" class="option-image">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-4">
+                        <label class="form-label" for="note">Note</label>
+                        <textarea id="note" formControlName="note" class="form-control"></textarea>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

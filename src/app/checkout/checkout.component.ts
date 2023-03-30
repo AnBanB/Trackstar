@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 interface Product {
   name: string;
@@ -13,6 +13,12 @@ interface ParishList {
   parish: string
 }
 
+interface Couriers {
+  courier: string;
+  shippingCost: number;
+  image: string
+}
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -20,15 +26,24 @@ interface ParishList {
 })
 export class CheckoutComponent implements OnInit {
 
-  subTotal!: number;
+  subTotal: number = 0;
+  deliveryCost: number = 0;
+  // Set the default option to zipmail
+  selectedCourier = "Zipmail";
+  shippingCost!: number;
 
   deliveryForm = new FormGroup({
-    fullName: new FormControl(''),
-    mobileNumber: new FormControl(''),
-    email: new FormControl(''),
-    addressLine1: new FormControl(''),
-    addressLine2: new FormControl(''),
-    parish: new FormControl(''),
+    fullName: new FormControl('', [Validators.required]),
+    mobileNumber: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+    addressLine1: new FormControl('', [Validators.required]),
+    addressLine2: new FormControl('', [Validators.required]),
+    parish: new FormControl('', [Validators.required]),
+  });
+
+  deliveryOptionsForm = new FormGroup({
+
+    deliveryOption: new FormControl(''),
     note: new FormControl('')
   });
 
@@ -69,19 +84,53 @@ export class CheckoutComponent implements OnInit {
   ];
 
 
+  deliveryOptions: Couriers[] = [
+    {
+      courier: 'Zipmail',
+      shippingCost: 450,
+      image: '../../assets/delivery_options/zipmail.jpg'
+    }
+  ]
+
+
+
 
   constructor() {
 
   }
 
   ngOnInit(): void {
+    this.calculateSubTotal();
+
+    this.shippingCost = this.deliveryOptions[0].shippingCost;
   }
 
-  updateSubTotal() {
 
-    this.subTotal = this.products.reduce((acc, product) => (product.price * product.quantity), 0)
 
+
+  calculateSubTotal() {
+    let sum = 0;
+    for (let product of this.products) {
+      sum += product.price * product.quantity;
+    }
+    this.subTotal = sum;
   }
+
+
+  checkError(field: string): boolean | undefined {
+    return this.deliveryForm.get(field)?.invalid && this.deliveryForm.get(field)?.touched;
+  }
+
+  submitDeliveryDetails() {
+    if (!this.deliveryForm.valid) {
+      this.deliveryForm.markAllAsTouched();
+    }
+    else{
+      console.log(this.deliveryForm.value);
+      console.log(this.deliveryOptions);
+    }
+  }
+
 
 
 

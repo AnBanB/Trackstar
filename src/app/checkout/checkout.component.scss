@@ -26,9 +26,6 @@ h3 {
     }
 }
 
-.white-card {
-    height: 100%;
-}
 
 .order-item {
     display: flex;
@@ -96,6 +93,13 @@ h3 {
     }
 }
 
+.delivery-options {
+    .option-image {
+        margin-left: 20px;
+        max-width: 100px;
+    }
+}
+
 .figures {
     p {
         font-size: 0.813rem;
@@ -105,4 +109,13 @@ h3 {
         border-top: 1px solid $grey;
         padding: 16px 0px;
     }
+}
+
+.error-notification {
+    color: $red;
+    font-size: 0.813rem;
+}
+
+.error-box {
+    border: 2px solid $red;
 }
