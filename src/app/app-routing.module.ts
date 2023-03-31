@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { LoginComponent } from './trackstar/login/login.component';
 
 const routes: Routes = [
   {
@@ -12,8 +13,8 @@ const routes: Routes = [
     component: CheckoutComponent
   },
   {
-    path: '',
-    component: CheckoutComponent
+    path: 'trackstar/login',
+    component: LoginComponent
   }
 ];
 

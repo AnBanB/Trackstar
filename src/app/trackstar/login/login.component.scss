@@ -1,0 +1,21 @@
+@import '../../../scss/abstracts/variable';
+
+.auth-card {
+    a{
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: $green-2;
+        text-decoration: none;
+
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+  
+    .small-text{
+        font-size: 0.75rem;
+    }
+}
+
+
+
