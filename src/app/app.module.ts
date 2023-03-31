@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { LoginComponent } from './trackstar/login/login.component';
+import { DeliveriesComponent } from './trackstar/deliveries/deliveries.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CheckoutComponent,
-    LoginComponent
+    LoginComponent,
+    DeliveriesComponent
   ],
   imports: [
     BrowserModule,
