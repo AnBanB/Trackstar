@@ -1,0 +1,33 @@
+@import '../../../scss/abstracts/variable';
+
+nav {
+    background-color: $white;
+    padding: 15px;
+    display: flex;
+    justify-content: end;
+
+
+    ul {
+        list-style: none;
+
+        .nav-item {
+            font-size: 0.875rem;
+
+            .logomark {
+                background-color: $blue-3;
+                color: $white;
+                border-radius: 50%;
+                height: 40px;
+                width: 40px;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                font-weight: 700;
+                margin-right: 5px;
+            }
+        }
+
+    }
+
+
+}

@@ -1,7 +1,151 @@
+<app-internal-nav></app-internal-nav>
+
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <h1>Deliveries</h1>
+            <div class="custom-mt">
+                <h1 class="mb-4">Welcome back, Electronics Plus!</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="search-addon">
+                    <img src="../../../assets/icons/search.svg" alt="Search">
+                </span>
+                <input type="text" class="form-control" placeholder="Search for parcel ID"
+                    aria-label="Search for parcel ID" aria-describedby="search-addon">
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="filterSelect">
+                    <img src="../../../assets/icons/filter.svg">
+                </label>
+                <select class="form-select" id="filterSelect">
+                    <option selected>Filter
+                    <option>
+                    <option value="1">Ready for pickup</option>
+                    <option value="2">Delivered</option>
+                    <option value="3">Pending</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="input-group mb-3">
+                <label class="input-group-text" for="sortSelect">
+                    <img src="../../../assets/icons/sort.svg">
+                </label>
+                <select class="form-select" id="sortSelect">
+                    <option selected>Recent deliveries
+                    <option>
+                    <option value="1">Last week's deliveries</option>
+                    <option value="2">Last month's deliveries</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="custom-card white-card">
+                <div class="custom-card-header">
+                    <h2>Deliveries</h2>
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date Submitted</th>
+                            <th>Carrier</th>
+                            <th>Parcel Number</th>
+                            <th>Status</th>
+                            <th>Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>March 18, 2023</td>
+                            <td>Zipmail</td>
+                            <td>ZP38234</td>
+                            <td><span class="custom-badge green-badge">Delivered</span></td>
+                            <td>$13,100</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>March 18, 2023</td>
+                            <td>Zipmail</td>
+                            <td>ZP78376</td>
+                            <td><span class="custom-badge orange-badge">Ready for pickup</span></td>
+                            <td>$5,100</td>
+                            <td><button class="custom-button button-blue" data-bs-toggle="modal"
+                                    data-bs-target="#manage-status">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>March 24, 2023</td>
+                            <td>Zipmail</td>
+                            <td>ZP19383</td>
+                            <td><span class="custom-badge blue-badge">Pending</span></td>
+                            <td>$710</td>
+                            <td><button class="custom-button button-blue" data-bs-toggle="modal"
+                                    data-bs-target="#manage-status">View</button></td>
+                        </tr>
+                        <tr>
+                            <td>April 1, 2023</td>
+                            <td>Zipmail</td>
+                            <td>ZP29372</td>
+                            <td><span class="custom-badge  blue-badge">Pending</span></td>
+                            <td>$8,500</td>
+                            <td><button class="custom-button button-blue" data-bs-toggle="modal"
+                                    data-bs-target="#manage-status">View</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="modal fade none-border" id="manage-status">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><strong>Parcel: ZP38234</strong></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p>Customer</p>
+                                            <p>Address</p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p>Jamie Chang</p>
+                                            <p>18 Mulbery Vale, Mona Crescent Hanover</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Package status</label>
+                                            <select class="form-control form-white" name="category-color">
+                                                <option value="---">---</option>
+                                                <option value="ready">Ready for pickup</option>
+                                                <option value="delivered">Delivered</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="custom-button button-green"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="custom-button button-blue"
+                                    data-bs-toggle="modal">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
