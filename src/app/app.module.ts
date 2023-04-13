@@ -14,7 +14,7 @@ import { CourierNavComponent } from './navigation/courier-nav/courier-nav.compon
 import { ExtNavComponent } from './navigation/ext-nav/ext-nav.component';
 import { PublicRegistrationComponent } from './trackstar/public-registration/public-registration.component';
 import { CourierLoginComponent } from './trackstar/courier-login/courier-login.component';
-
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,8 @@ import { CourierLoginComponent } from './trackstar/courier-login/courier-login.c
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

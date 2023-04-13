@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AutoCompleteService } from '../services/api/auto-complete.service';
+import { LocationType } from '../interfaces/addressType';
 
 interface Product {
   name: string;
@@ -31,6 +33,7 @@ export class CheckoutComponent implements OnInit {
   // Set the default option to zipmail
   selectedCourier = "Zipmail";
   shippingCost!: number;
+  filteredLocations: LocationType[] = [];
 
   deliveryForm = new FormGroup({
     fullName: new FormControl('', [Validators.required]),
@@ -98,7 +101,7 @@ export class CheckoutComponent implements OnInit {
 
 
 
-  constructor() {
+  constructor(private autoCompleteService: AutoCompleteService) {
 
   }
 
@@ -106,6 +109,23 @@ export class CheckoutComponent implements OnInit {
     this.calculateSubTotal();
 
     this.shippingCost = this.deliveryOptions[0].shippingCost;
+
+    this.deliveryForm.controls['addressLine1'].valueChanges.subscribe(addressEntered => {
+
+      console.log("Address entered", addressEntered);
+
+      if (addressEntered) {
+        this.autoCompleteService.getAddress(addressEntered).subscribe({
+          next: (addressList) => {
+            this.filteredLocations = addressList;
+            console.log(addressList);
+          }
+        })
+      }
+      else {
+        this.filteredLocations = [];
+      }
+    });
   }
 
 
@@ -128,13 +148,20 @@ export class CheckoutComponent implements OnInit {
     if (!this.deliveryForm.valid) {
       this.deliveryForm.markAllAsTouched();
     }
-    else{
+    else {
       console.log(this.deliveryForm.value);
       console.log(this.deliveryOptions);
     }
   }
 
 
+
+  populateAddress(location: LocationType)
+  {
+    console.log("Selected Location", location);
+   this.deliveryForm.controls['addressLine1'].setValue(location.civic_address);
+   this.deliveryForm.controls['']
+  }
 
 
 }

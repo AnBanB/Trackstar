@@ -6,3 +6,21 @@
 .error-box {
     border: 2px solid $red !important;
 }
+
+.custom-alert {
+    padding: 12px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+}
+
+.red-alert {
+    @include red-notification;
+}
+
+.green-alert {
+    @include green-notification;
+}

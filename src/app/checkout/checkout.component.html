@@ -34,12 +34,22 @@
                             Please enter a valid email address</p>
                     </div>
                     <h3 class="mt-4"> Delivery Address:</h3>
-                    <div class="col-md-12">
-                        <label class="form-label" for="addressLine1">Address Line 1</label>
-                        <input type="text" formControlName="addressLine1" class="form-control"
-                            [ngClass]="checkError('addressLine1')? 'error-box' : ''">
-                        <p *ngIf="checkError('addressLine1')" class="error-notification">
-                            Please enter your address</p>
+                    <div class="autocomplete-container">
+                        <div class="col-md-12">
+                            <label class="form-label" for="addressLine1">Address Line 1</label>
+                            <input type="text" formControlName="addressLine1" class="form-control"
+                                [ngClass]="checkError('addressLine1')? 'error-box' : ''">
+                            <p *ngIf="checkError('addressLine1')" class="error-notification">
+                                Please enter your address</p>
+                        </div>
+                        <div *ngIf="filteredLocations.length > 0" class="autocomplete-box">
+                            <ul>
+                                <li *ngFor="let location of filteredLocations" (click)="populateAddress(location)">{{(location.civic_address +", "+
+                                    (location.parish) +", " +
+                                    location.post_zone) }} </li>
+                            </ul>
+                            
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <label class="form-label" for="addressLine2">Address Line 2</label>
