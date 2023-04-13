@@ -39,6 +39,9 @@ export class CheckoutComponent implements OnInit {
     addressLine1: new FormControl('', [Validators.required]),
     addressLine2: new FormControl('', [Validators.required]),
     parish: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    postalZone: new FormControl('', [Validators.required]),
+    smartCode: new FormControl('', [Validators.required]),
   });
 
   deliveryOptionsForm = new FormGroup({

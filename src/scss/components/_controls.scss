@@ -25,6 +25,11 @@ form{
     }
 }
 
+.form-select option{
+    background-color: #f5f5f5 !important;
+    padding: 10px !important;
+}
+
 
 input {
     padding: 0.375rem 28px;
@@ -42,8 +47,19 @@ input {
     }
 }
 
+.input-group {
+    .input-group-text {
+        background-color: $white;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+        border: none;
 
-.form-select option{
-    background-color: #f5f5f5 !important;
-    padding: 10px !important;
+
+        img {
+            width: 13px;
+            filter: invert(45%) sepia(94%) saturate(317%) hue-rotate(160deg) brightness(89%) contrast(91%); //the same as $blue;
+        }
+    }
 }
+
+

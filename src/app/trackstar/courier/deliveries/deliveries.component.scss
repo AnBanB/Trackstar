@@ -1,0 +1,35 @@
+@import '../../../../scss/abstracts/mixins';
+@import '../../../../scss/abstracts/variable';
+
+h1 {
+    @include h1-style-1;
+}
+
+h2 {
+    font-size: 1rem;
+}
+
+.num-in {
+    position: relative;
+
+    p {
+        display: flex;
+        align-items: center;
+
+        span {
+            font-size: 72px;
+            font-weight: 800;
+            color: $blue;
+        }
+    }
+
+    .box {
+        position: absolute;
+        width: 160px;
+        left: 10;
+        right: -35px;
+        top: -53px;
+    }
+
+
+}

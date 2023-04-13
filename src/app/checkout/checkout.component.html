@@ -1,11 +1,14 @@
+<app-ext-nav></app-ext-nav>
+
+
 <div class="container">
     <div class="row">
-        <div class="col-12">
+        <div class="col-md-12">
             <h1 class="mb-5 mt-4">Checkout</h1>
         </div>
     </div>
     <div class="row">
-        <div class="col-6">
+        <div class="col-lg-6">
             <h2>Delivery Information</h2>
             <div class="custom-card white-card">
                 <form [formGroup]="deliveryForm" class="row">
@@ -35,12 +38,19 @@
                         <label class="form-label" for="addressLine1">Address Line 1</label>
                         <input type="text" formControlName="addressLine1" class="form-control"
                             [ngClass]="checkError('addressLine1')? 'error-box' : ''">
-                        <p *ngIf="checkError('addressLine1')">
+                        <p *ngIf="checkError('addressLine1')" class="error-notification">
                             Please enter your address</p>
                     </div>
                     <div class="col-md-12">
                         <label class="form-label" for="addressLine2">Address Line 2</label>
                         <input type="text" formControlName="addressLine2" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="city">City</label>
+                        <input type="text" formControlName="city" class="form-control"
+                            [ngClass]="checkError('city')? 'error-box' : ''">
+                        <p *ngIf="checkError('addressLine1')" class="error-notification">
+                            Please enter your address</p>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label" for="parish">Parish</label>
@@ -53,12 +63,48 @@
                         <p *ngIf="checkError('parish')" class="error-notification">
                             Please select a parish</p>
                     </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="postalZone">Postal Zone</label>
+                        <input type="text" formControlName="postalZone" class="form-control"
+                            [ngClass]="checkError('postalZone')? 'error-box' : ''">
+                        <p *ngIf="checkError('postalZone')" class="error-notification">
+                            Please enter your postal zone</p>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="smartCode">SMART Code</label>
+                        <input type="text" formControlName="smartCode" class="form-control"
+                            [ngClass]="checkError('smartCode')? 'error-box' : ''">
+                        <p *ngIf="checkError('smartCode')" class="error-notification">
+                            Please enter your SMART Code</p>
+                    </div>
                 </form>
             </div>
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <h2>Delivery Options</h2>
+                    <div class="custom-card white-card">
+                        <form [formGroup]="deliveryOptionsForm">
+                            <div class="col-md-12">
+                                <div *ngFor="let option of deliveryOptions" class="delivery-options">
+                                    <label>
+                                        <input type="radio" formControlName="deliveryOption" value="{{option.courier}}"
+                                            [(ngModel)]="selectedCourier">
+                                        <img src="{{option.image}}" class="option-image">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <label class="form-label" for="note">Note</label>
+                                <textarea id="note" formControlName="note" class="form-control" rows="4"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-5">
+        <div class="col-lg-5">
             <h2>Order Summary</h2>
-            <div class="custom-card white-card d-flex justify-content-between flex-column">
+            <div class="custom-card white-card d-flex justify-content-between flex-column  h-100">
                 <div>
                     <div class="order-item" *ngFor="let product of products">
                         <div class="order-img">
@@ -105,26 +151,5 @@
             </div>
         </div>
     </div>
-    <div class="row mt-5">
-        <div class="col-6">
-            <h2>Delivery Options</h2>
-            <div class="custom-card white-card">
-                <form [formGroup]="deliveryOptionsForm">
-                    <div class="col-md-12">
-                        <div *ngFor="let option of deliveryOptions" class="delivery-options">
-                            <label>
-                                <input type="radio" formControlName="deliveryOption" value="{{option.courier}}"
-                                    [(ngModel)]="selectedCourier">
-                                <img src="{{option.image}}" class="option-image">
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-12 mt-4">
-                        <label class="form-label" for="note">Note</label>
-                        <textarea id="note" formControlName="note" class="form-control"></textarea>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+
 </div>

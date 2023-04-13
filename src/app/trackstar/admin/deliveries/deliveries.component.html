@@ -1,10 +1,20 @@
-<app-internal-nav></app-internal-nav>
+<app-admin-nav></app-admin-nav>
 
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <div class="custom-mt">
-                <h1 class="mb-4">Welcome back, Electronics Plus!</h1>
+            <div class="custom-mt mb-5">
+                <h1 class="mb-4">Welcome back, TrackStar Admin!</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="custom-card white-card num-in">
+                <img src="../../../assets/box.png" alt="" class="box">
+                <p><span class="me-3">2</span> packages received today</p>
+                <button class="custom-button button-green" data-bs-toggle="modal" data-bs-target="#add-package">Add
+                    package</button>
             </div>
         </div>
     </div>
@@ -26,9 +36,7 @@
                 <select class="form-select" id="filterSelect">
                     <option selected>Filter
                     <option>
-                    <option value="1">Ready for pickup</option>
-                    <option value="2">Delivered</option>
-                    <option value="3">Pending</option>
+                    <option value="2">Received</option>
                 </select>
             </div>
         </div>
@@ -38,10 +46,10 @@
                     <img src="../../../assets/icons/sort.svg">
                 </label>
                 <select class="form-select" id="sortSelect">
-                    <option selected>Recent deliveries
+                    <option selected>Recently received
                     <option>
-                    <option value="1">Last week's deliveries</option>
-                    <option value="2">Last month's deliveries</option>
+                    <option value="1">Received last week</option>
+                    <option value="2">Received Last month</option>
                 </select>
             </div>
         </div>
@@ -50,7 +58,7 @@
         <div class="col-12">
             <div class="custom-card white-card">
                 <div class="custom-card-header">
-                    <h2>Deliveries</h2>
+                    <h2>Packages</h2>
                 </div>
                 <div class="table-responsive">
                     <table class="table">
@@ -69,15 +77,16 @@
                                 <td>March 18, 2023</td>
                                 <td>Zipmail</td>
                                 <td>ZP38234</td>
-                                <td><span class="custom-badge green-badge">Delivered</span></td>
+                                <td><span class="custom-badge green-badge">Received</span></td>
                                 <td>$13,100</td>
-                                <td></td>
+                                <td><button class="custom-button button-blue" data-bs-toggle="modal"
+                                        data-bs-target="#manage-status">View</button></td>
                             </tr>
                             <tr>
                                 <td>March 18, 2023</td>
                                 <td>Zipmail</td>
                                 <td>ZP78376</td>
-                                <td><span class="custom-badge orange-badge">Ready for pickup</span></td>
+                                <td><span class="custom-badge green-badge">Received</span></td>
                                 <td>$5,100</td>
                                 <td><button class="custom-button button-blue" data-bs-toggle="modal"
                                         data-bs-target="#manage-status">View</button></td>
@@ -86,7 +95,7 @@
                                 <td>March 24, 2023</td>
                                 <td>Zipmail</td>
                                 <td>ZP19383</td>
-                                <td><span class="custom-badge blue-badge">Pending</span></td>
+                                <td><span class="custom-badge green-badge">Received</span></td>
                                 <td>$710</td>
                                 <td><button class="custom-button button-blue" data-bs-toggle="modal"
                                         data-bs-target="#manage-status">View</button></td>
@@ -95,7 +104,7 @@
                                 <td>April 1, 2023</td>
                                 <td>Zipmail</td>
                                 <td>ZP29372</td>
-                                <td><span class="custom-badge  blue-badge">Pending</span></td>
+                                <td><span class="custom-badge green-badge">Received</span></td>
                                 <td>$8,500</td>
                                 <td><button class="custom-button button-blue" data-bs-toggle="modal"
                                         data-bs-target="#manage-status">View</button></td>
@@ -103,6 +112,7 @@
                         </tbody>
                     </table>
                 </div>
+                <!-- Package details -->
                 <div class="modal fade none-border" id="manage-status">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -127,17 +137,61 @@
                                             <p>18 Mulbery Vale, Mona Crescent Hanover</p>
                                         </div>
                                     </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="custom-button button-green"
+                                    data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade none-border" id="add-package">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><strong>Add Package</strong></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
                                     <div class="row">
+                                        <h2 class="my-3">Sender</h2>
                                         <div class="col-md-6">
-                                            <label class="form-label">Package status</label>
-                                            <select class="form-control form-white" name="category-color">
-                                                <option value="---">---</option>
-                                                <option value="ready">Ready for pickup</option>
-                                                <option value="delivered">Delivered</option>
-                                            </select>
+                                            <label class="control-label form-label">Full Name</label>
+                                            <input class="form-control form-white" type="text">
                                         </div>
                                         <div class="col-md-6">
-
+                                            <label class="control-label form-label">Address</label>
+                                            <input class="form-control form-white" type="text">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label form-label">Phone number</label>
+                                            <input class="form-control form-white" type="tel">
+                                        </div>
+                                        <h2 class="my-3">Recepient</h2>
+                                        <div class="col-md-6">
+                                            <label class="control-label form-label">Full Name</label>
+                                            <input class="form-control form-white" type="text">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label form-label">Address</label>
+                                            <input class="form-control form-white" type="text">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label form-label">Phone number</label>
+                                            <input class="form-control form-white" type="tel">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <h2 class="my-3">Dimensions</h2>
+                                        <div class="col-md-6">
+                                            <label class="control-label form-label">Weight</label>
+                                            <input class="form-control form-white" type="text">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label form-label">Cost</label>
+                                            <input class="form-control form-white" type="tel">
                                         </div>
                                     </div>
                                 </form>
@@ -145,8 +199,6 @@
                             <div class="modal-footer">
                                 <button type="button" class="custom-button button-green"
                                     data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="custom-button button-blue"
-                                    data-bs-toggle="modal">Save</button>
                             </div>
                         </div>
                     </div>

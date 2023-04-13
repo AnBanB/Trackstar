@@ -1,28 +1,14 @@
 @import '../../../scss/abstracts/variable';
+@import '../../../scss/abstracts/mixins';
 
-.custom-mt {
-    margin-top: 100px;
-}
+
 
 h1 {
-    font-size: 1.25rem;
+    @include h1-style-1;
 }
 
 
-.input-group {
-    .input-group-text {
-        background-color: $white;
-        border-top-left-radius: 2px;
-        border-bottom-left-radius: 2px;
-        border: none;
 
-
-        img {
-            width: 13px;
-            filter: invert(86%) sepia(36%) saturate(5380%) hue-rotate(185deg) brightness(105%) contrast(106%); //the same as $blue-4;
-        }
-    }
-}
 
 .table {
     .custom-button {
