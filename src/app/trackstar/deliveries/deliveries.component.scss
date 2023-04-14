@@ -1,0 +1,18 @@
+@import '../../../scss/abstracts/variable';
+@import '../../../scss/abstracts/mixins';
+
+
+
+h1 {
+    @include h1-style-1;
+}
+
+
+
+
+.table {
+    .custom-button {
+        padding: 9px;
+        font-size: 0.813rem;
+    }
+}

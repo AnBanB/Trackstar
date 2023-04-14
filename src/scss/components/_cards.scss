@@ -1,6 +1,14 @@
 .custom-card {
     border-radius: 3px;
     padding: 25px;
+
+    .custom-card-header{
+        border-bottom: 1px solid $grey-2;
+        margin-bottom: 35px;
+        h2{
+            font-size: 1.25rem;
+        }
+    }
 }
 
 .white-card{

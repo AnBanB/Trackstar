@@ -1,0 +1,108 @@
+<app-ext-nav></app-ext-nav>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="d-flex align-items-center justify-content-center">
+                <div class="white-card auth-card custom-mt">
+                    <div class="p-5">
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-12">
+                                <h1>Register</h1>
+                                <p>Welcome to <strong>TrackStar!</strong> Register to receive package updates</p>
+                                <form [formGroup]="registerForm" (ngSubmit)="register()" class="mt-4 row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="name" class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" formControlName="name"
+                                            [ngClass]="checkError('name')? 'error-box': ''" />
+                                        <p *ngIf="checkError('name')" class="error-notification">
+                                            Please enter your name
+                                        </p>
+                                    </div>
+                                    <div class=" col-md-12 mb-3">
+                                        <label for="phoneNumber" class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" formControlName="phoneNumber"
+                                            [ngClass]="checkError('phoneNumber')? 'error-box': ''" />
+                                        <p *ngIf="checkError('phoneNumber')" class="error-notification">
+                                            Please enter your phone number
+                                        </p>
+                                    </div>
+                                    <div class=" col-md-12 mb-3">
+                                        <label for="emailAddress" class="form-label">Email</label>
+                                        <input type="email" class="form-control" formControlName="emailAddress"
+                                            [ngClass]="checkError('emailAddress')? 'error-box': ''" />
+                                        <p *ngIf="checkError('emailAddress')" class="error-notification">
+                                            Please enter a valid email
+                                        </p>
+                                    </div>
+                                    <div class="autocomplete-container">
+                                        <div class="col-md-12 mb-3">
+                                            <label for="addressLine1" class="form-label">Address Line 1</label>
+                                            <input type="text" class="form-control" formControlName="addressLine1"
+                                                [ngClass]="checkError('addressLine1')? 'error-box': ''" />
+                                            <p *ngIf="checkError('addressLine1')" class="error-notification">
+                                                Please enter your address
+                                            </p>
+                                        </div>
+                                        <div *ngIf="filteredLocations.length >0" class="autocomplete-box">
+                                            <ul>
+                                                <li *ngFor="let location of filteredLocations"
+                                                    (click)="populateAddress(location)">{{(location.civic_address +" "+
+                                                    (location.parish) +" " +
+                                                    location.post_zone) }} </li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="addressLine2" class="form-label">Address Line 2</label>
+                                        <input type="text" class="form-control" formControlName="addressLine2" />
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label" for="city">City</label>
+                                        <input type="text" formControlName="city" class="form-control"
+                                            [ngClass]="checkError('city')? 'error-box' : ''">
+                                        <p *ngIf="checkError('addressLine2')" class="error-notification">
+                                            Please enter your address</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label" for="parish">Parish</label>
+                                        <select formControlName="parish" class="form-select"
+                                            [ngClass]="checkError('parish')? 'error-box' : ''">
+                                            <option *ngFor="let p of parishes" value="{{p.parish |uppercase}}">
+                                                {{p.parish}}
+                                            </option>
+                                        </select>
+                                        <p *ngIf="checkError('parish')" class="error-notification">
+                                            Please select a parish</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label" for="postalZone">Postal Zone</label>
+                                        <input type="text" formControlName="postalZone" class="form-control"
+                                            [ngClass]="checkError('postalZone')? 'error-box' : ''">
+                                        <p *ngIf="checkError('postalZone')" class="error-notification">
+                                            Please enter your postal zone</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3 ">
+                                        <label class="form-label" for="smartCode">SMART Code</label>
+                                        <input type="text" formControlName="smartCode" class="form-control">
+                                    </div>
+                                    <div class="button-group-vertical">
+                                        <button class="custom-button button-green" type="submit">
+                                            Register
+                                        </button>
+                                    </div>
+                                </form>
+                                <div *ngIf="successMsg" class="custom-alert green-alert">
+                                    {{successMsg}}
+                                </div>
+                                <div *ngIf="errMsg" class="custom-alert red-alert">
+                                    {{errMsg}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
