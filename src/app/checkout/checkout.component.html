@@ -44,11 +44,12 @@
                         </div>
                         <div *ngIf="filteredLocations.length > 0" class="autocomplete-box">
                             <ul>
-                                <li *ngFor="let location of filteredLocations" (click)="populateAddress(location)">{{(location.civic_address +", "+
+                                <li *ngFor="let location of filteredLocations" (click)="populateAddress(location)">
+                                    {{(location.civic_address +", "+
                                     (location.parish) +", " +
                                     location.post_zone) }} </li>
                             </ul>
-                            
+
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -154,9 +155,16 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="custom-button button-green w-100"
-                        (click)="submitDeliveryDetails()">Place
-                        Order</button>
+                    <button type="submit" *ngIf="!showCheckout" class="custom-button button-green w-100 mb-2"
+                        (click)="calculateShipping()">Calculate Shipping</button>
+                    <button type="submit" *ngIf="showCheckout" class="custom-button button-green w-100 mb-2"
+                        (click)="checkOut()">Checkout</button>
+                        <div *ngIf="successMsg" class="custom-alert green-alert">
+                            {{successMsg}}
+                        </div>
+                        <div *ngIf="errMsg" class="custom-alert red-alert">
+                            {{errMsg}}
+                        </div>
                 </div>
             </div>
         </div>

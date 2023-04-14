@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AutoCompleteService } from '../services/api/auto-complete.service';
 import { LocationType } from '../interfaces/addressType';
+import { ParcelDetails } from '../interfaces/parcelTypes';
+import { ParcelService } from '../services/api/parcel.service';
 
 interface Product {
   name: string;
@@ -34,13 +36,16 @@ export class CheckoutComponent implements OnInit {
   selectedCourier = "Zipmail";
   shippingCost!: number;
   filteredLocations: LocationType[] = [];
+  showCheckout: boolean = false;
+  errMsg!: string;
+  successMsg!: string;
 
   deliveryForm = new FormGroup({
     fullName: new FormControl('', [Validators.required]),
     mobileNumber: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
     addressLine1: new FormControl('', [Validators.required]),
-    addressLine2: new FormControl('', [Validators.required]),
+    addressLine2: new FormControl(''),
     parish: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     postalZone: new FormControl('', [Validators.required]),
@@ -61,13 +66,13 @@ export class CheckoutComponent implements OnInit {
     { parish: 'Kingston' },
     { parish: 'Manchester' },
     { parish: 'Portland' },
-    { parish: 'St. Andrew' },
-    { parish: 'St. Ann' },
-    { parish: 'St. Catherine' },
-    { parish: 'St. Elizabeth' },
-    { parish: 'St. James' },
-    { parish: 'St. Mary' },
-    { parish: 'St. Thomas' },
+    { parish: 'St.Andrew' },
+    { parish: 'St.Ann' },
+    { parish: 'St.Catherine' },
+    { parish: 'St.Elizabeth' },
+    { parish: 'St.James' },
+    { parish: 'St.Mary' },
+    { parish: 'St.Thomas' },
     { parish: 'Trelawny' },
     { parish: 'Westmoreland' }
   ]
@@ -93,7 +98,7 @@ export class CheckoutComponent implements OnInit {
   deliveryOptions: Couriers[] = [
     {
       courier: 'Zipmail',
-      shippingCost: 450,
+      shippingCost: 0,
       image: '../../assets/delivery_options/zipmail.jpg'
     }
   ]
@@ -101,7 +106,9 @@ export class CheckoutComponent implements OnInit {
 
 
 
-  constructor(private autoCompleteService: AutoCompleteService) {
+  constructor(
+    private autoCompleteService: AutoCompleteService,
+    private parcelService: ParcelService) {
 
   }
 
@@ -145,18 +152,6 @@ export class CheckoutComponent implements OnInit {
     return this.deliveryForm.get(field)?.invalid && this.deliveryForm.get(field)?.touched;
   }
 
-  submitDeliveryDetails() {
-    if (!this.deliveryForm.valid) {
-      this.deliveryForm.markAllAsTouched();
-    }
-    else {
-      console.log(this.deliveryForm.value);
-      console.log(this.deliveryOptions);
-    }
-  }
-
-
-
   populateAddress(location: LocationType) {
     this.deliveryForm.controls['addressLine1'].setValue(location.civic_address);
     this.deliveryForm.controls['city'].setValue(location.community_name);
@@ -168,6 +163,72 @@ export class CheckoutComponent implements OnInit {
     this.filteredLocations = [];
 
   }
+
+  calculateShipping() {
+    console.log("Calculating shipping");
+    if (!this.deliveryForm.valid) {
+      this.deliveryForm.markAllAsTouched();
+      console.log("I am invalid");
+    }
+    else {
+      console.log("send me over");
+      console.log(this.deliveryForm.value);
+      console.log(this.deliveryOptions);
+
+      const packageInfo: ParcelDetails = {
+        merchant_id: 1,
+        weightlbs: 20,
+        recipient_name: this.deliveryForm.value.fullName,
+        recipient_street_address: this.deliveryForm.value.addressLine1,
+        recipient_address_line2: this.deliveryForm.value.addressLine2,
+        recipient_address_line3: "",
+        recipient_city: this.deliveryForm.value.city,
+        recipient_parish_state: this.deliveryForm.value.parish,
+        recipient_post_office: this.deliveryForm.value.postalZone,
+        recipient_zip_code: this.deliveryForm.value.city,
+        recipient_address_code: this.deliveryForm.value.smartCode,
+        recipient_country: "Jamaica",
+        recipient_email: this.deliveryForm.value.email,
+        recipient_phone: this.deliveryForm.value.mobileNumber,
+        customer_id: 98765,
+        delivery_time_type: "Express",
+        weight: 20,
+        delivery_type: "Express",
+        package_status: "Pending",
+        created_by: 1
+      }
+
+      this.parcelService.submitParcel(packageInfo).subscribe({
+        next: (result) => {
+          console.log("This is the result", result.package_id);
+
+          const quotePayload = {
+            package_id: result.package_id
+          }
+          this.parcelService.getParcelQuote(quotePayload).subscribe({
+            next: (quote) => {
+              this.shippingCost = quote[0].Cost;
+              this.showCheckout = true;
+            },
+            error: (err) => {
+              this.showCheckout = false;
+              console.log("This is the quote error", err);
+              this.errMsg = "The shipping cost calculation failed, please try again";
+            }
+          })
+        },
+        error: (err) => {
+          console.log("This is the error", err);
+          this.errMsg = "The shipping cost calculation failed, please try again";
+        }
+      })
+    }
+  }
+
+  checkOut() {
+    this.successMsg = "Your order is complete";
+  }
+
 
 
 }

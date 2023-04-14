@@ -57,48 +57,21 @@
                         <thead>
                             <tr>
                                 <th>Date Submitted</th>
-                                <th>Carrier</th>
-                                <th>Parcel Number</th>
                                 <th>Status</th>
-                                <th>Amount</th>
+                                <th>Recipient</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>March 18, 2023</td>
-                                <td>Zipmail</td>
-                                <td>ZP38234</td>
-                                <td><span class="custom-badge green-badge">Delivered</span></td>
-                                <td>$13,100</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>March 18, 2023</td>
-                                <td>Zipmail</td>
-                                <td>ZP78376</td>
-                                <td><span class="custom-badge orange-badge">Ready for pickup</span></td>
-                                <td>$5,100</td>
-                                <td><button class="custom-button button-blue" data-bs-toggle="modal"
-                                        data-bs-target="#manage-status">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>March 24, 2023</td>
-                                <td>Zipmail</td>
-                                <td>ZP19383</td>
-                                <td><span class="custom-badge blue-badge">Pending</span></td>
-                                <td>$710</td>
-                                <td><button class="custom-button button-blue" data-bs-toggle="modal"
-                                        data-bs-target="#manage-status">View</button></td>
-                            </tr>
-                            <tr>
-                                <td>April 1, 2023</td>
-                                <td>Zipmail</td>
-                                <td>ZP29372</td>
-                                <td><span class="custom-badge  blue-badge">Pending</span></td>
-                                <td>$8,500</td>
-                                <td><button class="custom-button button-blue" data-bs-toggle="modal"
-                                        data-bs-target="#manage-status">View</button></td>
+                            <tr *ngFor="let parcel of merchantParcels">
+                                <td>{{parcel.date_created | date }}</td>
+                                <td><span
+                                        [ngClass]="parcel.package_status =='Pending' ?'orange-badge custom-badge' :'green-badge custom-badge' ">{{parcel.package_status}}</span>
+                                </td>
+                                <td>{{parcel.recipient_name}}</td>
+                                <!-- <td><button class="custom-button button-blue" data-bs-toggle="modal"
+                                        data-bs-target="#manage-status">View</button></td> -->
+                                <td><button class="custom-button button-blue" data-bs-toggle="modal">View</button></td>
                             </tr>
                         </tbody>
                     </table>

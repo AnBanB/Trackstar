@@ -62,9 +62,6 @@ export class PublicRegistrationComponent implements OnInit {
         this.autoCompleteService.getAddress(addressEntered).subscribe({
           next: (addressList) => {
             this.filteredLocations = addressList;
-            console.log("Address me", addressList, this.filteredLocations.length);
-
-
             //stop the popup from still showing after an address is selected
             if (addressEntered === this.filteredLocations[0].civic_address) {
               this.filteredLocations = [];

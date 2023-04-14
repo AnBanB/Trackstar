@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalstoreService } from 'src/app/services/localstore.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courier-nav',
@@ -8,13 +10,22 @@ import { Component, OnInit } from '@angular/core';
 export class CourierNavComponent implements OnInit {
 
   show = false;
-  constructor() { }
+  constructor(
+    private localStore: LocalstoreService,
+    private router: Router
+    ) { }
 
   ngOnInit(): void {
   }
 
   showDropdown() {
     this.show = this.show ? false : true;
+  }
+
+  logout()
+  {
+    this.localStore.removeData("token");
+    this.router.navigateByUrl("/trackstar/courier/login");
   }
 
 }
