@@ -1,0 +1,10 @@
+<nav>
+    <ul>
+        <li class="nav-item" (click)="showDropdown()"><span class="logomark">EP</span>Electronics Plus</li>
+        <div class="dropdown" *ngIf="show">
+                <ul>
+                    <li><a [routerLink]="['/trackstar/login']">Logout</a></li>
+                </ul>
+        </div>
+    </ul>
+</nav>

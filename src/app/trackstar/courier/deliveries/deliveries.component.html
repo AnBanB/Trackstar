@@ -1,0 +1,244 @@
+<app-courier-nav></app-courier-nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="custom-mt mb-5">
+                <h1 class="mb-4">Welcome back, Jamaica Post!</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="custom-card white-card num-in">
+                <img src="../../../assets/box.png" alt="" class="box">
+                <p><span class="me-3">2</span> parcels received today</p>
+                <button class="custom-button button-green" data-bs-toggle="modal" data-bs-target="#add-package">Add
+                    parcel</button>
+            </div>
+        </div>
+    </div>
+    <div class="row my-4 g-3">
+        <div class="col-md-4">
+            <div class="input-group flex-nowrap">
+                <span class="input-group-text" id="search-addon">
+                    <img src="../../../assets/icons/search.svg" alt="Search">
+                </span>
+                <input type="text" class="form-control" placeholder="Search for parcel ID"
+                    aria-label="Search for parcel ID" aria-describedby="search-addon">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group">
+                <label class="input-group-text" for="filterSelect">
+                    <img src="../../../assets/icons/filter.svg">
+                </label>
+                <select class="form-select" id="filterSelect">
+                    <option selected>Filter
+                    <option>
+                    <option value="2">Received</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group">
+                <label class="input-group-text" for="sortSelect">
+                    <img src="../../../assets/icons/sort.svg">
+                </label>
+                <select class="form-select" id="sortSelect">
+                    <option selected>Recently received
+                    <option>
+                    <option value="1">Received last week</option>
+                    <option value="2">Received Last month</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-12">
+            <div class="custom-card white-card">
+                <div class="custom-card-header">
+                    <h2>Deliveries</h2>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Date Submitted</th>
+                                <th>Receipient</th>
+                                <th>Address</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>March 18, 2023</td>
+                                <td>Avril Tobago</td>
+                                <td>10 Smallings Avenue</td>
+                                <td><span class="custom-badge green-badge">Received</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>March 18, 2023</td>
+                                <td>Avril Tobago</td>
+                                <td>10 Smallings Avenue</td>
+                                <td><span class="custom-badge orange-badge">Ready for pickup</span></td>
+                                <td><button class="custom-button button-blue" data-bs-toggle="modal"
+                                        data-bs-target="#manage-status">View</button></td>
+                            </tr>
+                            <tr>
+                                <td>March 24, 2023</td>
+                                <td>Avril Tobago</td>
+                                <td>10 Smallings Avenue</td>
+                                <td><span class="custom-badge green-badge">Received</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>April 1, 2023</td>
+                                <td>Avril Tobago</td>
+                                <td>10 Smallings Avenue</td>
+                                <td><span class="custom-badge orange-badge">Ready for pickup</span></td>
+                                <td><button class="custom-button button-blue" data-bs-toggle="modal"
+                                        data-bs-target="#manage-status">View</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Parcel status -->
+                <div class="modal fade none-border" id="manage-status">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><strong>Parcel: ZP38234</strong></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <p><strong>Customer</strong></p>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <p>Jamie Chang</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <p><strong>Address</strong></p>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <p>18 Mulbery Vale, Mona Crescent Hanover</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Parcel status</label>
+                                            <select class="form-control form-white" name="category-color">
+                                                <option value="---">---</option>
+                                                <option value="ready">Ready for pickup</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="custom-button button-green"
+                                    data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="custom-button button-blue"
+                                    data-bs-toggle="modal">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New parcel  -->
+                <div class="modal fade none-border" id="add-package">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><strong>Add Parcel</strong></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form [formGroup]="packageForm" (ngSubmit)="submit()" class="mt-4 row">
+                                    <h5> <strong>Receipient</strong></h5>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="fullname" class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" formControlName="fullname"
+                                            [ngClass]="checkError('fullname')? 'error-box': ''" />
+                                        <p *ngIf="checkError('fullname')" class="error-notification">
+                                            Please enter your name
+                                        </p>
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="addressLine1" class="form-label">Address Line 1</label>
+                                        <input type="text" class="form-control" formControlName="addressLine1"
+                                            [ngClass]="checkError('addressLine1')? 'error-box': ''" />
+                                        <p *ngIf="checkError('addressLine1')" class="error-notification">
+                                            Please enter your address
+                                        </p>
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label for="addressLine2" class="form-label">Address Line 2</label>
+                                        <input type="text" class="form-control" formControlName="addressLine1" />
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label" for="city">City</label>
+                                        <input type="text" formControlName="city" class="form-control"
+                                            [ngClass]="checkError('city')? 'error-box' : ''">
+                                        <p *ngIf="checkError('addressLine1')" class="error-notification">
+                                            Please enter your address</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label" for="parish">Parish</label>
+                                        <select formControlName="parish" class="form-select"
+                                            [ngClass]="checkError('parish')? 'error-box' : ''">
+                                            <option *ngFor="let p of parishes" value="{{p.parish}}">
+                                                {{p.parish}}
+                                            </option>
+                                        </select>
+                                        <p *ngIf="checkError('parish')" class="error-notification">
+                                            Please select a parish</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label" for="postalZone">Postal Zone</label>
+                                        <input type="text" formControlName="postalZone" class="form-control"
+                                            [ngClass]="checkError('postalZone')? 'error-box' : ''">
+                                        <p *ngIf="checkError('postalZone')" class="error-notification">
+                                            Please enter your postal zone</p>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label" for="smartCode">SMART Code</label>
+                                        <input type="text" formControlName="smartCode" class="form-control"
+                                            [ngClass]="checkError('smartCode')? 'error-box' : ''">
+                                        <p *ngIf="checkError('smartCode')" class="error-notification">
+                                            Please enter your SMART Code</p>
+                                    </div>
+
+                                    <div class="or">
+                                        OR
+                                    </div>
+                                    <div class="col-md-12 mb-3">
+                                        <label class="form-label" for="scanToText">Scan to Text</label>
+                                        <textarea formControlName="scanToText" class="form-control"></textarea>
+                                    </div>
+                                    <div class="button-group-vertical">
+                                        <button class="custom-button button-green" type="submit">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="custom-button button-green-outline"
+                                    data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AutoCompleteService } from '../services/api/auto-complete.service';
+import { LocationType } from '../interfaces/addressType';
 
 interface Product {
   name: string;
@@ -31,6 +33,7 @@ export class CheckoutComponent implements OnInit {
   // Set the default option to zipmail
   selectedCourier = "Zipmail";
   shippingCost!: number;
+  filteredLocations: LocationType[] = [];
 
   deliveryForm = new FormGroup({
     fullName: new FormControl('', [Validators.required]),
@@ -39,6 +42,9 @@ export class CheckoutComponent implements OnInit {
     addressLine1: new FormControl('', [Validators.required]),
     addressLine2: new FormControl('', [Validators.required]),
     parish: new FormControl('', [Validators.required]),
+    city: new FormControl('', [Validators.required]),
+    postalZone: new FormControl('', [Validators.required]),
+    smartCode: new FormControl('', [Validators.required]),
   });
 
   deliveryOptionsForm = new FormGroup({
@@ -95,7 +101,7 @@ export class CheckoutComponent implements OnInit {
 
 
 
-  constructor() {
+  constructor(private autoCompleteService: AutoCompleteService) {
 
   }
 
@@ -103,6 +109,24 @@ export class CheckoutComponent implements OnInit {
     this.calculateSubTotal();
 
     this.shippingCost = this.deliveryOptions[0].shippingCost;
+
+    this.deliveryForm.controls['addressLine1'].valueChanges.subscribe(addressEntered => {
+
+      if (addressEntered) {
+        this.autoCompleteService.getAddress(addressEntered).subscribe({
+          next: (addressList) => {
+            this.filteredLocations = addressList;
+            //stop the popup from still showing after an address is selected
+            if (addressEntered === this.filteredLocations[0].civic_address) {
+              this.filteredLocations = [];
+            }
+          }
+        })
+      }
+      else {
+        this.filteredLocations = [];
+      }
+    });
   }
 
 
@@ -125,13 +149,25 @@ export class CheckoutComponent implements OnInit {
     if (!this.deliveryForm.valid) {
       this.deliveryForm.markAllAsTouched();
     }
-    else{
+    else {
       console.log(this.deliveryForm.value);
       console.log(this.deliveryOptions);
     }
   }
 
 
+
+  populateAddress(location: LocationType) {
+    this.deliveryForm.controls['addressLine1'].setValue(location.civic_address);
+    this.deliveryForm.controls['city'].setValue(location.community_name);
+    this.deliveryForm.controls['parish'].setValue(location.parish);
+    this.deliveryForm.controls['postalZone'].setValue(location.post_zone);
+    if (location.smartcode_ext) {
+      this.deliveryForm.controls['smartCode'].setValue(location.smartcode_ext);
+    }
+    this.filteredLocations = [];
+
+  }
 
 
 }

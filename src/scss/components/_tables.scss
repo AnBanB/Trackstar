@@ -1,0 +1,15 @@
+.table {
+
+    td {
+        padding: 16px !important;
+    }
+
+    tr {
+
+        &:last-of-type {
+            td {
+                border-bottom: none;
+            }
+        }
+    }
+}

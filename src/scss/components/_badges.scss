@@ -1,0 +1,27 @@
+@import '../abstracts/variable';
+@import '../abstracts/mixins';
+
+.custom-badge {
+    padding: 7px;
+    border-radius: 16px;
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+    display: inline-block;
+}
+
+.green-badge {
+   @include green-notification;
+}
+
+.red-badge {
+    @include red-notification;
+}
+
+.orange-badge {
+    @include orange-notification;
+}
+
+.blue-badge {
+ @include blue-notification
+}
