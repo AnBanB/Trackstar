@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LocalstoreService } from 'src/app/services/localstore.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,10 @@ export class LoginComponent implements OnInit {
 
   });
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private localStore: LocalstoreService
+  ) { }
 
   ngOnInit(): void {
   }
@@ -27,6 +31,7 @@ export class LoginComponent implements OnInit {
     }
     else {
       console.log("These are the forms", this.loginForm.value);
+      this.localStore.setData("email", this.loginForm.value.emailAddress);
       this.router.navigateByUrl("/trackstar/deliveries");
     }
   }

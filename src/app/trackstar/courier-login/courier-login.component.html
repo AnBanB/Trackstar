@@ -40,6 +40,9 @@
                                             Login
                                         </button>
                                     </div>
+                                    <div *ngIf="errMsg" class="custom-alert red-alert">
+                                        {{errMsg}}
+                                    </div>
                                 </form>
                             </div>
 
