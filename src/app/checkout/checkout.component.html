@@ -66,7 +66,7 @@
                         <label class="form-label" for="parish">Parish</label>
                         <select formControlName="parish" class="form-select"
                             [ngClass]="checkError('parish')? 'error-box' : ''">
-                            <option *ngFor="let p of parishes" value="{{p.parish}}">
+                            <option *ngFor="let p of parishes" value="{{p.parish | uppercase}}">
                                 {{p.parish}}
                             </option>
                         </select>

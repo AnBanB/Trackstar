@@ -112,13 +112,14 @@ export class CheckoutComponent implements OnInit {
 
     this.deliveryForm.controls['addressLine1'].valueChanges.subscribe(addressEntered => {
 
-      console.log("Address entered", addressEntered);
-
       if (addressEntered) {
         this.autoCompleteService.getAddress(addressEntered).subscribe({
           next: (addressList) => {
             this.filteredLocations = addressList;
-            console.log(addressList);
+            //stop the popup from still showing after an address is selected
+            if (addressEntered === this.filteredLocations[0].civic_address) {
+              this.filteredLocations = [];
+            }
           }
         })
       }
@@ -156,11 +157,16 @@ export class CheckoutComponent implements OnInit {
 
 
 
-  populateAddress(location: LocationType)
-  {
-    console.log("Selected Location", location);
-   this.deliveryForm.controls['addressLine1'].setValue(location.civic_address);
-   this.deliveryForm.controls['']
+  populateAddress(location: LocationType) {
+    this.deliveryForm.controls['addressLine1'].setValue(location.civic_address);
+    this.deliveryForm.controls['city'].setValue(location.community_name);
+    this.deliveryForm.controls['parish'].setValue(location.parish);
+    this.deliveryForm.controls['postalZone'].setValue(location.post_zone);
+    if (location.smartcode_ext) {
+      this.deliveryForm.controls['smartCode'].setValue(location.smartcode_ext);
+    }
+    this.filteredLocations = [];
+
   }
 
 

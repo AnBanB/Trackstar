@@ -19,7 +19,8 @@ export class CourierDeliveriesComponent implements OnInit {
     city: new FormControl('', Validators.required),
     parish: new FormControl('', Validators.required),
     postalZone: new FormControl('', Validators.required),
-    smartCode: new FormControl('', Validators.required)
+    smartCode: new FormControl('', Validators.required),
+    scanToText: new FormControl('')
   });
   
 

@@ -29,7 +29,8 @@ export class PublicRegistrationComponent implements OnInit {
     addressLine2: new FormControl(''),
     city: new FormControl('', Validators.required),
     parish: new FormControl('', Validators.required),
-    postalZone: new FormControl('', Validators.required)
+    postalZone: new FormControl('', Validators.required),
+    smartCode: new FormControl(''),
   });
 
   parishes: ParishList[] = [
@@ -121,8 +122,7 @@ export class PublicRegistrationComponent implements OnInit {
 
 
   populateAddress(location: LocationType) {
-
-
+    console.log(location);
     this.registerForm.controls['addressLine1'].setValue(location.civic_address);
     this.registerForm.controls['city'].setValue(location.community_name);
     this.registerForm.controls['parish'].setValue(location.parish);

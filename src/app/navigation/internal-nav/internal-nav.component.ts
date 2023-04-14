@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InternalNavComponent implements OnInit {
 
+  show = false;
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  showDropdown() {
+    this.show = this.show ? false : true;
   }
 
 }
