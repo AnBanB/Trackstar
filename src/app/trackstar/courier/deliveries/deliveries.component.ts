@@ -109,7 +109,6 @@ export class CourierDeliveriesComponent implements OnInit {
     }
     else {
 
-
       const packagePayload: PostOfficeParcelPayload = {
         recipient_name: this.packageForm.value.fullname,
         recipient_address: this.packageForm.value.addressLine1,
@@ -126,7 +125,6 @@ export class CourierDeliveriesComponent implements OnInit {
         smartcode: this.packageForm.value.smartCode
       }
 
-      console.log("This is the payload", packagePayload);
 
       this.parcelService.addParcelAtPostOffice(packagePayload).subscribe({
         next: (result) => {

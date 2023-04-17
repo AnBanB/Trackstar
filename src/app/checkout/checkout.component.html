@@ -151,13 +151,13 @@
                         <div class="bordered-top">
                             <div class="d-flex justify-content-between">
                                 <p>Total (JMD)</p>
-                                <p>{{ subTotal + shippingCost | currency}}</p>
+                                <p>{{ finalTotal | currency}}</p>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" *ngIf="!showCheckout" class="custom-button button-green w-100 mb-2"
-                        (click)="calculateShipping()">Calculate Shipping</button>
-                    <button type="submit" *ngIf="showCheckout" class="custom-button button-green w-100 mb-2"
+                    <!-- <button type="submit" *ngIf="!showCheckout" class="custom-button button-green w-100 mb-2"
+                        (click)="calculateShipping()">Calculate Shipping</button> -->
+                    <button type="submit" class="custom-button button-green w-100 mb-2"
                         (click)="checkOut()">Checkout</button>
                         <div *ngIf="successMsg" class="custom-alert green-alert">
                             {{successMsg}}

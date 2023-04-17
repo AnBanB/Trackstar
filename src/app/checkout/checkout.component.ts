@@ -32,11 +32,12 @@ export class CheckoutComponent implements OnInit {
 
   subTotal: number = 0;
   deliveryCost: number = 0;
+  finalTotal: number = 0;
   // Set the default option to zipmail
   selectedCourier = "Zipmail";
   shippingCost!: number;
   filteredLocations: LocationType[] = [];
-  showCheckout: boolean = false;
+  // showCheckout: boolean = false;
   errMsg!: string;
   successMsg!: string;
 
@@ -134,6 +135,26 @@ export class CheckoutComponent implements OnInit {
         this.filteredLocations = [];
       }
     });
+
+    this.deliveryForm.controls['smartCode'].valueChanges.subscribe(sCode => {
+      if (sCode) {
+        const quotePayload = {
+          merchant_id: 1,
+          smartcode_ext: this.deliveryForm.value.smartCode,
+          weight: 9
+        }
+        this.parcelService.getParcelQuote(quotePayload).subscribe({
+          next: (quote) => {
+            this.shippingCost = quote.cost;
+            this.finalTotal = Number(this.subTotal) + Number(this.shippingCost);
+          },
+          error: (err) => {
+            console.log("This is the quote error", err);
+            this.errMsg = "The shipping cost calculation failed, please try again";
+          }
+        })
+      }
+    });
   }
 
 
@@ -164,69 +185,99 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-  calculateShipping() {
-    console.log("Calculating shipping");
-    if (!this.deliveryForm.valid) {
-      this.deliveryForm.markAllAsTouched();
-      console.log("I am invalid");
-    }
-    else {
-      console.log("send me over");
-      console.log(this.deliveryForm.value);
-      console.log(this.deliveryOptions);
+  // calculateShipping() {
+  //   console.log("Calculating shipping");
+  //   if (!this.deliveryForm.valid) {
+  //     this.deliveryForm.markAllAsTouched();
+  //     console.log("I am invalid");
+  //   }
+  //   else {
+  //     console.log("send me over");
+  //     console.log(this.deliveryForm.value);
+  //     console.log(this.deliveryOptions);
 
-      const packageInfo: ParcelDetails = {
-        merchant_id: 1,
-        weightlbs: 20,
-        recipient_name: this.deliveryForm.value.fullName,
-        recipient_street_address: this.deliveryForm.value.addressLine1,
-        recipient_address_line2: this.deliveryForm.value.addressLine2,
-        recipient_address_line3: "",
-        recipient_city: this.deliveryForm.value.city,
-        recipient_parish_state: this.deliveryForm.value.parish,
-        recipient_post_office: this.deliveryForm.value.postalZone,
-        recipient_zip_code: this.deliveryForm.value.city,
-        recipient_address_code: this.deliveryForm.value.smartCode,
-        recipient_country: "Jamaica",
-        recipient_email: this.deliveryForm.value.email,
-        recipient_phone: this.deliveryForm.value.mobileNumber,
-        customer_id: 98765,
-        delivery_time_type: "Express",
-        weight: 20,
-        delivery_type: "Express",
-        package_status: "Pending",
-        created_by: 1
-      }
+  //     const packageInfo: ParcelDetails = {
+  //       merchant_id: 1,
+  //       weightlbs: 20,
+  //       recipient_name: this.deliveryForm.value.fullName,
+  //       recipient_street_address: this.deliveryForm.value.addressLine1,
+  //       recipient_address_line2: this.deliveryForm.value.addressLine2,
+  //       recipient_address_line3: "",
+  //       recipient_city: this.deliveryForm.value.city,
+  //       recipient_parish_state: this.deliveryForm.value.parish,
+  //       recipient_post_office: this.deliveryForm.value.postalZone,
+  //       recipient_zip_code: this.deliveryForm.value.city,
+  //       recipient_address_code: this.deliveryForm.value.smartCode,
+  //       recipient_country: "Jamaica",
+  //       recipient_email: this.deliveryForm.value.email,
+  //       recipient_phone: this.deliveryForm.value.mobileNumber,
+  //       customer_id: 98765,
+  //       delivery_time_type: "Express",
+  //       weight: 20,
+  //       delivery_type: "Express",
+  //       package_status: "Pending",
+  //       created_by: 1
+  //     }
 
-      this.parcelService.submitParcel(packageInfo).subscribe({
-        next: (result) => {
-          console.log("This is the result", result.package_id);
-
-          const quotePayload = {
-            package_id: result.package_id
-          }
-          this.parcelService.getParcelQuote(quotePayload).subscribe({
-            next: (quote) => {
-              this.shippingCost = quote[0].Cost;
-              this.showCheckout = true;
-            },
-            error: (err) => {
-              this.showCheckout = false;
-              console.log("This is the quote error", err);
-              this.errMsg = "The shipping cost calculation failed, please try again";
-            }
-          })
-        },
-        error: (err) => {
-          console.log("This is the error", err);
-          this.errMsg = "The shipping cost calculation failed, please try again";
-        }
-      })
-    }
-  }
+  //     this.parcelService.submitParcel(packageInfo).subscribe({
+  //       next: (result) => {
+  //         console.log("This is the result", result.package_id);
+  //       },
+  //       error: (err) => {
+  //         console.log("This is the error", err);
+  //         this.errMsg = "The shipping cost calculation failed, please try again";
+  //       }
+  //     })
+  //   }
+  // }
 
   checkOut() {
-    this.successMsg = "Your order is complete";
+    if (!this.deliveryForm.valid) {
+      this.deliveryForm.markAllAsTouched();
+    }
+    else {
+      console.log(this.deliveryForm.value);
+      console.log("Cost", this.deliveryOptions);
+
+      if (Number(this.shippingCost) == Number(0.00)) {
+        this.errMsg = "You are currently unable to place this order as the shipping cost could not be generated. Please try again later";
+      }
+      else {
+
+        const packageInfo: ParcelDetails = {
+          merchant_id: 1,
+          weightlbs: 20,
+          recipient_name: this.deliveryForm.value.fullName,
+          recipient_street_address: this.deliveryForm.value.addressLine1,
+          recipient_address_line2: this.deliveryForm.value.addressLine2,
+          recipient_address_line3: "",
+          recipient_city: this.deliveryForm.value.city,
+          recipient_parish_state: this.deliveryForm.value.parish,
+          recipient_post_office: this.deliveryForm.value.postalZone,
+          recipient_zip_code: this.deliveryForm.value.city,
+          recipient_address_code: this.deliveryForm.value.smartCode,
+          recipient_country: "Jamaica",
+          recipient_email: this.deliveryForm.value.email,
+          recipient_phone: this.deliveryForm.value.mobileNumber,
+          customer_id: 98765,
+          delivery_time_type: "Express",
+          weight: 20,
+          delivery_type: "Express",
+          package_status: "Pending",
+          created_by: 1
+        }
+
+        this.parcelService.submitParcel(packageInfo).subscribe({
+          next: (result) => {
+            this.successMsg = "Your order is complete";
+          },
+          error: (err) => {
+            console.log("This is the error", err);
+            this.errMsg = "An issue has occured while placing this order. Please try again";
+          }
+        })
+      }
+    }
   }
 
 
