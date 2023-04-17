@@ -31,7 +31,7 @@ export class ParcelService {
   }
 
   getParcelQuote(packagePayload: any) {
-    return this.httpClient.post(`${environment.apiURL}/package/getQuote`, packagePayload).pipe(
+    return this.httpClient.post(`${environment.apiURL}/package/getLiveQuote`, packagePayload).pipe(
       map((data: any) => {
         return data;
       })
