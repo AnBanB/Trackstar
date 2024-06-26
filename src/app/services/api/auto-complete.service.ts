@@ -18,7 +18,7 @@ export class AutoCompleteService {
   }
 
   getAddress(address: string) {
-    return this.httpClient.get(`${environment.ysmartApiURL}/smart-business/autocomplete?q=${address}`, { headers: this.headers })
+    return this.httpClient.get(`${environment.ysmartApiURL}/smart-business/auto-complete?q=${address}`, { headers: this.headers })
       .pipe(
         map((data: any) => {
           return data;
