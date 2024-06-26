@@ -10,7 +10,7 @@ export class AutoCompleteService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private apiKey: string = "6186ee46-ae58-4523-ae97-23e6c3e8729f";
+  private apiKey: string = "5ca896ff-300c-11ef-b7c3-0242ac110002";
 
   headers = {
     'Content-Type': 'application/json',
